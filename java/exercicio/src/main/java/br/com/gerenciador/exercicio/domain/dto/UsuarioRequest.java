@@ -14,13 +14,13 @@ import java.time.LocalDate;
 @ToString
 public class UsuarioRequest {
     private Long id;
-    @NotBlank
+    @NotBlank(message = "Senha não pode ser nula ou em branco")
     private String senha;
-    @NotBlank
+    @NotBlank(message = "Nome não pode ser nula ou em branco")
     private String nome;
     private LocalDate dataNascimento;
-    @Email
-    @NotBlank
+    @Email(message = "O e-mail deve ser valido")
+    @NotBlank(message = "E-mail não pode ser nula ou em branco")
     private String email;
     private int altura;
     private double peso;
