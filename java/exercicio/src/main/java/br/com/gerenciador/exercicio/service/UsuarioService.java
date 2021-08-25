@@ -2,6 +2,7 @@ package br.com.gerenciador.exercicio.service;
 
 import br.com.gerenciador.exercicio.domain.dto.UsuarioRequest;
 import br.com.gerenciador.exercicio.domain.model.Usuario;
+import br.com.gerenciador.exercicio.exception.UsuarioNotFoundException;
 import br.com.gerenciador.exercicio.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,14 @@ public class UsuarioService {
     private ModelMapper mapper;
 
 
-    public Usuario save(UsuarioRequest request){
+    public Usuario save(UsuarioRequest request) {
         Usuario usuario = mapper.map(request, Usuario.class);
         return repository.save(usuario);
+    }
+
+    public Usuario findByEmail(String email) {
+        return repository.findByEmail(email)
+                .orElseThrow(() -> new UsuarioNotFoundException(email));
+
     }
 }

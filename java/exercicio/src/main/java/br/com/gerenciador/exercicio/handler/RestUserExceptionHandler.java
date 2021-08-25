@@ -1,6 +1,7 @@
 package br.com.gerenciador.exercicio.handler;
 
 import br.com.gerenciador.exercicio.error.ApiError;
+import br.com.gerenciador.exercicio.exception.UsuarioNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -30,6 +31,20 @@ public class RestUserExceptionHandler {
                                 .mensagem("Parametros Invalidos")
                                 .codigo(HttpStatus.BAD_REQUEST.toString())
                                 .campos(campos)
+                                .build()
+                ))
+                .build();
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(UsuarioNotFoundException.class)
+    public ApiError badResquestHandler(UsuarioNotFoundException request){
+
+        return ApiError.builder()
+                .messages(List.of(
+                        ApiError.Message.builder()
+                                .mensagem(request.getMessage())
+                                .codigo(HttpStatus.BAD_REQUEST.toString())
                                 .build()
                 ))
                 .build();

@@ -28,4 +28,10 @@ public class UsuarioController {
         URI uri = uriBuilder.path("api/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
         return ResponseEntity.created(uri).body(usuario);
     }
+
+    @GetMapping
+    public ResponseEntity<Usuario> findUserByEmail(@RequestParam String email){
+        Usuario usuario = service.findByEmail(email);
+        return ResponseEntity.ok(usuario);
+    }
 }
